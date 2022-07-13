@@ -1,0 +1,292 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<zabbix_export>
+    <version>6.2</version>
+    <date>2022-07-13T23:08:45Z</date>
+    <template_groups>
+        <template_group>
+            <uuid>7df96b18c230490a9a0a9e2307226338</uuid>
+            <name>Templates</name>
+        </template_group>
+    </template_groups>
+    <templates>
+        <template>
+            <uuid>0fbbad94a43d44b4af12c7a334408210</uuid>
+            <template>Template DNS Check Custom Server</template>
+            <name>Template DNS Check Custom Server</name>
+            <groups>
+                <group>
+                    <name>Templates</name>
+                </group>
+            </groups>
+            <discovery_rules>
+                <discovery_rule>
+                    <uuid>fd95b3d49d5a4b23a724781229831c78</uuid>
+                    <name>DNS Check Discovery</name>
+                    <type>EXTERNAL</type>
+                    <key>dnscheck_resolve[send,{$HOSTDNS},{HOST.HOST},ptrYES,ipv6YES,mxNO,txtNO,{$NAMESERVER}]</key>
+                    <delay>300</delay>
+                    <lifetime>5d</lifetime>
+                    <item_prototypes>
+                        <item_prototype>
+                            <uuid>89f9d07686af48f8af3afffa4ee2688f</uuid>
+                            <name>IPv4 on {#HOSTDNS}: #{#IPV4NUM}</name>
+                            <type>TRAP</type>
+                            <key>dnscheck.ipv4[{{#HOSTDNS},#IPV4NUM}]</key>
+                            <delay>0</delay>
+                            <trends>0</trends>
+                            <value_type>TEXT</value_type>
+                            <tags>
+                                <tag>
+                                    <tag>Application</tag>
+                                    <value>DNS Check</value>
+                                </tag>
+                            </tags>
+                            <trigger_prototypes>
+                                <trigger_prototype>
+                                    <uuid>bc9b63a1122e40d9a8a3f6a5f32cd629</uuid>
+                                    <expression>(last(/Template DNS Check Custom Server/dnscheck.ipv4[{{#HOSTDNS},#IPV4NUM}],#1)&lt;&gt;last(/Template DNS Check Custom Server/dnscheck.ipv4[{{#HOSTDNS},#IPV4NUM}],#2))&gt;0 and find(/Template DNS Check Custom Server/dnscheck.ipv4[{{#HOSTDNS},#IPV4NUM}],#2,&quot;like&quot;,&quot;TIMEOUT&quot;)=0 and find(/Template DNS Check Custom Server/dnscheck.ipv4[{{#HOSTDNS},#IPV4NUM}],#2,&quot;like&quot;,&quot;NODNS&quot;)=0</expression>
+                                    <name>{#HOSTDNS}: IPv4 #{#IPV4NUM} has changed</name>
+                                    <priority>INFO</priority>
+                                    <description>If value was changed but not to or from 'TIMEOUT'</description>
+                                </trigger_prototype>
+                                <trigger_prototype>
+                                    <uuid>5896168617564de3aca002cbaa3a602c</uuid>
+                                    <expression>find(/Template DNS Check Custom Server/dnscheck.ipv4[{{#HOSTDNS},#IPV4NUM}],,&quot;like&quot;,&quot;NOIPV4&quot;)=1</expression>
+                                    <name>{#HOSTDNS}: IPv4 #{#IPV4NUM} has no A record</name>
+                                    <priority>HIGH</priority>
+                                </trigger_prototype>
+                                <trigger_prototype>
+                                    <uuid>17b79f519bc84b8f84a01ffd4ba55381</uuid>
+                                    <expression>find(/Template DNS Check Custom Server/dnscheck.ipv4[{{#HOSTDNS},#IPV4NUM}],#2,&quot;like&quot;,&quot;TIMEOUT&quot;)=1</expression>
+                                    <name>{#HOSTDNS}: main DNS forward query has timed out</name>
+                                    <priority>WARNING</priority>
+                                    <description>Applies to IPv4, IPv6 and MX.</description>
+                                </trigger_prototype>
+                                <trigger_prototype>
+                                    <uuid>602c6575f9674883827a5a9211987aba</uuid>
+                                    <expression>find(/Template DNS Check Custom Server/dnscheck.ipv4[{{#HOSTDNS},#IPV4NUM}],,&quot;like&quot;,&quot;NODNS&quot;)=1</expression>
+                                    <name>{#HOSTDNS} needs a DNS name configured in Zabbix</name>
+                                    <priority>INFO</priority>
+                                </trigger_prototype>
+                            </trigger_prototypes>
+                        </item_prototype>
+                        <item_prototype>
+                            <uuid>8d76bf9acd4c40b1a0b9eac24ff92d18</uuid>
+                            <name>IPv6 on {#HOSTDNS}: #{#IPV6NUM}</name>
+                            <type>TRAP</type>
+                            <key>dnscheck.ipv6[{#HOSTDNS},{#IPV6NUM}]</key>
+                            <delay>0</delay>
+                            <trends>0</trends>
+                            <value_type>TEXT</value_type>
+                            <tags>
+                                <tag>
+                                    <tag>Application</tag>
+                                    <value>DNS Check</value>
+                                </tag>
+                            </tags>
+                            <trigger_prototypes>
+                                <trigger_prototype>
+                                    <uuid>7379dc24a3564c75bb9013b35ec10fa3</uuid>
+                                    <expression>(last(/Template DNS Check Custom Server/dnscheck.ipv6[{#HOSTDNS},{#IPV6NUM}],#1)&lt;&gt;last(/Template DNS Check Custom Server/dnscheck.ipv6[{#HOSTDNS},{#IPV6NUM}],#2))&gt;0 and find(/Template DNS Check Custom Server/dnscheck.ipv6[{#HOSTDNS},{#IPV6NUM}],#2,&quot;like&quot;,&quot;TIMEOUT&quot;)=0</expression>
+                                    <name>{#HOSTDNS}: IPv6 #{#IPV6NUM} has changed</name>
+                                    <priority>INFO</priority>
+                                    <description>If value was changed but not to or from 'TIMEOUT'</description>
+                                </trigger_prototype>
+                                <trigger_prototype>
+                                    <uuid>251137ed38424fba9eec981548ffcc60</uuid>
+                                    <expression>find(/Template DNS Check Custom Server/dnscheck.ipv6[{#HOSTDNS},{#IPV6NUM}],,&quot;like&quot;,&quot;NOIPV6&quot;)=1</expression>
+                                    <name>{#HOSTDNS}: IPv6 #{#IPV6NUM} has no AAAA record</name>
+                                    <priority>AVERAGE</priority>
+                                </trigger_prototype>
+                            </trigger_prototypes>
+                        </item_prototype>
+                        <item_prototype>
+                            <uuid>6df7e086852442db9fbe5c417d010b9a</uuid>
+                            <name>MX priority on {#HOSTDNS}: #{#MXPRINUM}</name>
+                            <type>TRAP</type>
+                            <key>dnscheck.mxpri[{#HOSTDNS},{#MXPRINUM}]</key>
+                            <delay>0</delay>
+                            <trends>0</trends>
+                            <value_type>TEXT</value_type>
+                            <tags>
+                                <tag>
+                                    <tag>Application</tag>
+                                    <value>DNS Check</value>
+                                </tag>
+                            </tags>
+                            <trigger_prototypes>
+                                <trigger_prototype>
+                                    <uuid>d32e84d934964801bcdd36c695bc38be</uuid>
+                                    <expression>(last(/Template DNS Check Custom Server/dnscheck.mxpri[{#HOSTDNS},{#MXPRINUM}],#1)&lt;&gt;last(/Template DNS Check Custom Server/dnscheck.mxpri[{#HOSTDNS},{#MXPRINUM}],#2))&gt;0</expression>
+                                    <name>{#HOSTDNS}: MX priority on #{#MXPRINUM} has changed</name>
+                                    <priority>INFO</priority>
+                                </trigger_prototype>
+                            </trigger_prototypes>
+                        </item_prototype>
+                        <item_prototype>
+                            <uuid>bf9cf033904047ad95adde18ac8dc4a4</uuid>
+                            <name>MX on {#HOSTDNS}: #{#MXNUM}</name>
+                            <type>TRAP</type>
+                            <key>dnscheck.mx[{#HOSTDNS},{#MXNUM}]</key>
+                            <delay>0</delay>
+                            <trends>0</trends>
+                            <value_type>TEXT</value_type>
+                            <tags>
+                                <tag>
+                                    <tag>Application</tag>
+                                    <value>DNS Check</value>
+                                </tag>
+                            </tags>
+                            <trigger_prototypes>
+                                <trigger_prototype>
+                                    <uuid>d283cab425854f5e974ca81d5e750053</uuid>
+                                    <expression>(last(/Template DNS Check Custom Server/dnscheck.mx[{#HOSTDNS},{#MXNUM}],#1)&lt;&gt;last(/Template DNS Check Custom Server/dnscheck.mx[{#HOSTDNS},{#MXNUM}],#2))&gt;0 and find(/Template DNS Check Custom Server/dnscheck.mx[{#HOSTDNS},{#MXNUM}],#2,&quot;like&quot;,&quot;TIMEOUT&quot;)=0</expression>
+                                    <name>{#HOSTDNS}: MX #{#MXNUM} has changed</name>
+                                    <priority>INFO</priority>
+                                    <description>If value was changed but not to or from 'TIMEOUT'</description>
+                                </trigger_prototype>
+                                <trigger_prototype>
+                                    <uuid>2d5c75311e094aa9b16d3d7815f502f5</uuid>
+                                    <expression>find(/Template DNS Check Custom Server/dnscheck.mx[{#HOSTDNS},{#MXNUM}],,&quot;like&quot;,&quot;NOMX&quot;)=1</expression>
+                                    <name>{#HOSTDNS}: MX records are not present</name>
+                                    <priority>AVERAGE</priority>
+                                </trigger_prototype>
+                            </trigger_prototypes>
+                        </item_prototype>
+                        <item_prototype>
+                            <uuid>a6c8c4291ff34fc58fd203588867f481</uuid>
+                            <name>PTR for IPv4 on {#HOSTDNS}: #{#PTR4NUM}</name>
+                            <type>TRAP</type>
+                            <key>dnscheck.ptr4[{#HOSTDNS},{#PTR4NUM}]</key>
+                            <delay>0</delay>
+                            <trends>0</trends>
+                            <value_type>TEXT</value_type>
+                            <tags>
+                                <tag>
+                                    <tag>Application</tag>
+                                    <value>DNS Check</value>
+                                </tag>
+                            </tags>
+                            <trigger_prototypes>
+                                <trigger_prototype>
+                                    <uuid>59da69238bbc4a04bf686eb8fdb49e67</uuid>
+                                    <expression>find(/Template DNS Check Custom Server/dnscheck.ptr4[{#HOSTDNS},{#PTR4NUM}],,&quot;like&quot;,&quot;MULTIPTR&quot;)=1</expression>
+                                    <name>{#HOSTDNS}: IPv4 #{#PTR4NUM} has more than one PTR record</name>
+                                    <priority>AVERAGE</priority>
+                                </trigger_prototype>
+                                <trigger_prototype>
+                                    <uuid>78bac36b2d7044259905c1f689cb401e</uuid>
+                                    <expression>find(/Template DNS Check Custom Server/dnscheck.ptr4[{#HOSTDNS},{#PTR4NUM}],,&quot;like&quot;,&quot;NOPTR&quot;)=1</expression>
+                                    <name>{#HOSTDNS}: IPv4 #{#PTR4NUM} has no PTR record</name>
+                                    <priority>WARNING</priority>
+                                </trigger_prototype>
+                                <trigger_prototype>
+                                    <uuid>81e20974eb8242e49b7d2f40beee541c</uuid>
+                                    <expression>(last(/Template DNS Check Custom Server/dnscheck.ptr4[{#HOSTDNS},{#PTR4NUM}],#1)&lt;&gt;last(/Template DNS Check Custom Server/dnscheck.ptr4[{#HOSTDNS},{#PTR4NUM}],#2))&gt;0</expression>
+                                    <name>{#HOSTDNS}: IPv4 #{#PTR4NUM} PTR has changed</name>
+                                    <priority>INFO</priority>
+                                    <description>TIMEOUT, NOPTR and MULTIPTR will also trigger this.</description>
+                                </trigger_prototype>
+                                <trigger_prototype>
+                                    <uuid>64990705c13f4110ba4f5818c3205f5a</uuid>
+                                    <expression>find(/Template DNS Check Custom Server/dnscheck.ptr4[{#HOSTDNS},{#PTR4NUM}],#2,&quot;like&quot;,&quot;TIMEOUT&quot;)=1</expression>
+                                    <name>{#HOSTDNS}: IPv4 #{#PTR4NUM} recursive query has timed out</name>
+                                    <priority>WARNING</priority>
+                                </trigger_prototype>
+                            </trigger_prototypes>
+                        </item_prototype>
+                        <item_prototype>
+                            <uuid>8581c41e71d442f5ab1cdccd42e5c90f</uuid>
+                            <name>PTR for IPv6 on {#HOSTDNS}: #{#PTR6NUM}</name>
+                            <type>TRAP</type>
+                            <key>dnscheck.ptr6[{#HOSTDNS},{#PTR6NUM}]</key>
+                            <delay>0</delay>
+                            <trends>0</trends>
+                            <value_type>TEXT</value_type>
+                            <tags>
+                                <tag>
+                                    <tag>Application</tag>
+                                    <value>DNS Check</value>
+                                </tag>
+                            </tags>
+                            <trigger_prototypes>
+                                <trigger_prototype>
+                                    <uuid>f1f49639b22344c99adbfce36d1ba9c6</uuid>
+                                    <expression>find(/Template DNS Check Custom Server/dnscheck.ptr6[{#HOSTDNS},{#PTR6NUM}],,&quot;like&quot;,&quot;MULTIPTR&quot;)=1</expression>
+                                    <name>{#HOSTDNS}: IPv6 #{#PTR6NUM} has more than one PTR record</name>
+                                    <priority>AVERAGE</priority>
+                                </trigger_prototype>
+                                <trigger_prototype>
+                                    <uuid>65f3ecf263324051b47d7c233174f92f</uuid>
+                                    <expression>find(/Template DNS Check Custom Server/dnscheck.ptr6[{#HOSTDNS},{#PTR6NUM}],,&quot;like&quot;,&quot;NOPTR&quot;)=1</expression>
+                                    <name>{#HOSTDNS}: IPv6 #{#PTR6NUM} has no PTR record</name>
+                                    <priority>WARNING</priority>
+                                </trigger_prototype>
+                                <trigger_prototype>
+                                    <uuid>b77fbf99c9aa4e5998614e5976b09bfc</uuid>
+                                    <expression>(last(/Template DNS Check Custom Server/dnscheck.ptr6[{#HOSTDNS},{#PTR6NUM}],#1)&lt;&gt;last(/Template DNS Check Custom Server/dnscheck.ptr6[{#HOSTDNS},{#PTR6NUM}],#2))&gt;0</expression>
+                                    <name>{#HOSTDNS}: IPv6 #{#PTR6NUM} PTR has changed</name>
+                                    <priority>INFO</priority>
+                                    <description>TIMEOUT, NOPTR and MULTIPTR will also trigger this.</description>
+                                </trigger_prototype>
+                                <trigger_prototype>
+                                    <uuid>ff30ff001b3c451794db37127008cb82</uuid>
+                                    <expression>find(/Template DNS Check Custom Server/dnscheck.ptr6[{#HOSTDNS},{#PTR6NUM}],#2,&quot;like&quot;,&quot;TIMEOUT&quot;)=1</expression>
+                                    <name>{#HOSTDNS}: IPv6 #{#PTR6NUM} recursive query has timed out</name>
+                                    <priority>WARNING</priority>
+                                </trigger_prototype>
+                            </trigger_prototypes>
+                        </item_prototype>
+                        <item_prototype>
+                            <uuid>8e0a3a08be5c41a5a3a8d085add87480</uuid>
+                            <name>TXT on {#HOSTDNS}: #{#TXTNUM}</name>
+                            <type>TRAP</type>
+                            <key>dnscheck.txt[{#HOSTDNS},{#TXTNUM}]</key>
+                            <delay>0</delay>
+                            <trends>0</trends>
+                            <value_type>TEXT</value_type>
+                            <tags>
+                                <tag>
+                                    <tag>Application</tag>
+                                    <value>DNS Check</value>
+                                </tag>
+                            </tags>
+                            <trigger_prototypes>
+                                <trigger_prototype>
+                                    <uuid>975acd5326bc4142badc37ecf4265edf</uuid>
+                                    <expression>(last(/Template DNS Check Custom Server/dnscheck.txt[{#HOSTDNS},{#TXTNUM}],#1)&lt;&gt;last(/Template DNS Check Custom Server/dnscheck.txt[{#HOSTDNS},{#TXTNUM}],#2))&gt;0 and find(/Template DNS Check Custom Server/dnscheck.txt[{#HOSTDNS},{#TXTNUM}],#2,&quot;like&quot;,&quot;TIMEOUT&quot;)=0</expression>
+                                    <name>{#HOSTDNS}: TXT #{#TXTNUM} has changed</name>
+                                    <priority>INFO</priority>
+                                    <description>If value was changed but not to or from 'TIMEOUT'</description>
+                                </trigger_prototype>
+                                <trigger_prototype>
+                                    <uuid>b683a75e829346599c976969f4cae3ab</uuid>
+                                    <expression>find(/Template DNS Check Custom Server/dnscheck.txt[{#HOSTDNS},{#TXTNUM}],#2,&quot;like&quot;,&quot;TIMEOUT&quot;)=1</expression>
+                                    <name>{#HOSTDNS}: TXT DNS forward query has timed out</name>
+                                    <priority>WARNING</priority>
+                                    <description>Applies to TXT.</description>
+                                </trigger_prototype>
+                                <trigger_prototype>
+                                    <uuid>a70bd1a859644d20aa0158d12b915f9f</uuid>
+                                    <expression>find(/Template DNS Check Custom Server/dnscheck.txt[{#HOSTDNS},{#TXTNUM}],,&quot;like&quot;,&quot;NOTXT&quot;)=1</expression>
+                                    <name>{#HOSTDNS}: TXT records are not present</name>
+                                    <priority>AVERAGE</priority>
+                                </trigger_prototype>
+                            </trigger_prototypes>
+                        </item_prototype>
+                    </item_prototypes>
+                </discovery_rule>
+            </discovery_rules>
+            <macros>
+                <macro>
+                    <macro>{$HOSTDNS}</macro>
+                    <value>localhost.local</value>
+                </macro>
+                <macro>
+                    <macro>{$NAMESERVER}</macro>
+                    <value>8.8.8.8</value>
+                </macro>
+            </macros>
+        </template>
+    </templates>
+</zabbix_export>

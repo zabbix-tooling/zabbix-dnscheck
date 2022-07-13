@@ -29,7 +29,7 @@
                     <type>10</type>
                     <snmp_community/>
                     <snmp_oid/>
-                    <key>dnscheck-gather-lld.py[get,{HOST.DNS},{HOST.HOST},ptrYES,ipv6NO,mxNO,txtNO]</key>
+                    <key>dnscheck_resolve[send,{HOST.DNS},{HOST.HOST},ptrYES,ipv6NO,mxNO,txtNO,{#NAMESERVER}]</key>
                     <delay>43200</delay>
                     <status>0</status>
                     <allowed_hosts/>
@@ -63,7 +63,7 @@
                             <snmp_community/>
                             <multiplier>0</multiplier>
                             <snmp_oid/>
-                            <key>dnscheck.ipv4[{#IPV4NUM}]</key>
+                            <key>dnscheck.ipv4[{#HOSTNAME},{#IPV4NUM}]</key>
                             <delay>0</delay>
                             <history>90</history>
                             <trends>365</trends>
@@ -106,7 +106,7 @@
                             <snmp_community/>
                             <multiplier>0</multiplier>
                             <snmp_oid/>
-                            <key>dnscheck.ipv6[{#IPV6NUM}]</key>
+                            <key>dnscheck.ipv6[{#HOSTNAME},{#IPV6NUM}]</key>
                             <delay>0</delay>
                             <history>90</history>
                             <trends>365</trends>
@@ -149,7 +149,7 @@
                             <snmp_community/>
                             <multiplier>0</multiplier>
                             <snmp_oid/>
-                            <key>dnscheck.mx[{#MXNUM}]</key>
+                            <key>dnscheck.mx[{#HOSTNAME},{#MXNUM}]</key>
                             <delay>0</delay>
                             <history>90</history>
                             <trends>365</trends>
@@ -192,7 +192,7 @@
                             <snmp_community/>
                             <multiplier>0</multiplier>
                             <snmp_oid/>
-                            <key>dnscheck.mxpri[{#MXPRINUM}]</key>
+                            <key>dnscheck.mxpri[{#HOSTNAME},{#MXPRINUM}]</key>
                             <delay>0</delay>
                             <history>90</history>
                             <trends>365</trends>
@@ -235,7 +235,7 @@
                             <snmp_community/>
                             <multiplier>0</multiplier>
                             <snmp_oid/>
-                            <key>dnscheck.ptr4[{#PTR4NUM}]</key>
+                            <key>dnscheck.ptr4[{#HOSTNAME},{#PTR4NUM}]</key>
                             <delay>0</delay>
                             <history>90</history>
                             <trends>365</trends>
@@ -278,7 +278,7 @@
                             <snmp_community/>
                             <multiplier>0</multiplier>
                             <snmp_oid/>
-                            <key>dnscheck.ptr6[{#PTR6NUM}]</key>
+                            <key>dnscheck.ptr6[{#HOSTNAME},{#PTR6NUM}]</key>
                             <delay>0</delay>
                             <history>90</history>
                             <trends>365</trends>
@@ -321,7 +321,7 @@
                             <snmp_community/>
                             <multiplier>0</multiplier>
                             <snmp_oid/>
-                            <key>dnscheck.txt[{#TXTNUM}]</key>
+                            <key>dnscheck.txt[{#HOSTNAME},{#TXTNUM}]</key>
                             <delay>0</delay>
                             <history>90</history>
                             <trends>365</trends>
@@ -371,7 +371,7 @@
                         </trigger_prototype>
                         <trigger_prototype>
                             <expression>{Template DNS Check Server:dnscheck.ipv4[{#IPV4NUM}].str(NOIPV4)}=1</expression>
-                            <name>{#HOSTNAME}: IPv4 #{#IPV4NUM} have no A record</name>
+                            <name>{#HOSTNAME}: IPv4 #{#IPV4NUM} has no A record</name>
                             <url/>
                             <status>0</status>
                             <priority>4</priority>
@@ -380,7 +380,7 @@
                         </trigger_prototype>
                         <trigger_prototype>
                             <expression>{Template DNS Check Server:dnscheck.ptr4[{#PTR4NUM}].str(MULTIPTR)}=1</expression>
-                            <name>{#HOSTNAME}: IPv4 #{#PTR4NUM} have more than one PTR record</name>
+                            <name>{#HOSTNAME}: IPv4 #{#PTR4NUM} has more than one PTR record</name>
                             <url/>
                             <status>0</status>
                             <priority>3</priority>
@@ -389,7 +389,7 @@
                         </trigger_prototype>
                         <trigger_prototype>
                             <expression>{Template DNS Check Server:dnscheck.ptr4[{#PTR4NUM}].str(NOPTR)}=1</expression>
-                            <name>{#HOSTNAME}: IPv4 #{#PTR4NUM} have no PTR record</name>
+                            <name>{#HOSTNAME}: IPv4 #{#PTR4NUM} has no PTR record</name>
                             <url/>
                             <status>0</status>
                             <priority>2</priority>
@@ -425,7 +425,7 @@
                         </trigger_prototype>
                         <trigger_prototype>
                             <expression>{Template DNS Check Server:dnscheck.ipv6[{#IPV6NUM}].str(NOIPV6)}=1</expression>
-                            <name>{#HOSTNAME}: IPv6 #{#IPV6NUM} have no AAAA record</name>
+                            <name>{#HOSTNAME}: IPv6 #{#IPV6NUM} has no AAAA record</name>
                             <url/>
                             <status>0</status>
                             <priority>3</priority>
@@ -434,7 +434,7 @@
                         </trigger_prototype>
                         <trigger_prototype>
                             <expression>{Template DNS Check Server:dnscheck.ptr6[{#PTR6NUM}].str(MULTIPTR)}=1</expression>
-                            <name>{#HOSTNAME}: IPv6 #{#PTR6NUM} have more than one PTR record</name>
+                            <name>{#HOSTNAME}: IPv6 #{#PTR6NUM} has more than one PTR record</name>
                             <url/>
                             <status>0</status>
                             <priority>3</priority>
@@ -443,7 +443,7 @@
                         </trigger_prototype>
                         <trigger_prototype>
                             <expression>{Template DNS Check Server:dnscheck.ptr6[{#PTR6NUM}].str(NOPTR)}=1</expression>
-                            <name>{#HOSTNAME}: IPv6 #{#PTR6NUM} have no PTR record</name>
+                            <name>{#HOSTNAME}: IPv6 #{#PTR6NUM} has no PTR record</name>
                             <url/>
                             <status>0</status>
                             <priority>2</priority>

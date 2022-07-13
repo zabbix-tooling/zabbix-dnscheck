@@ -29,7 +29,7 @@
                     <type>10</type>
                     <snmp_community/>
                     <snmp_oid/>
-                    <key>dnscheck-gather-lld.py[get,{HOST.DNS},{HOST.HOST},ptrYES,ipv6NO,mxYES,txtYES]</key>
+                    <key>dnscheck-resolve.py[send,{HOST.DNS},{HOST.HOST},ptrYES,ipv6NO,mxYES,txtYES,{#NAMESERVER}]</key>
                     <delay>43200</delay>
                     <status>0</status>
                     <allowed_hosts/>
@@ -371,7 +371,7 @@
                         </trigger_prototype>
                         <trigger_prototype>
                             <expression>{Template DNS Check Mail Server:dnscheck.ipv4[{#IPV4NUM}].str(NOIPV4)}=1</expression>
-                            <name>{#HOSTNAME}: IPv4 #{#IPV4NUM} have no A record</name>
+                            <name>{#HOSTNAME}: IPv4 #{#IPV4NUM} has no A record</name>
                             <url/>
                             <status>0</status>
                             <priority>4</priority>
@@ -380,7 +380,7 @@
                         </trigger_prototype>
                         <trigger_prototype>
                             <expression>{Template DNS Check Mail Server:dnscheck.ptr4[{#PTR4NUM}].str(MULTIPTR)}=1</expression>
-                            <name>{#HOSTNAME}: IPv4 #{#PTR4NUM} have more than one PTR record</name>
+                            <name>{#HOSTNAME}: IPv4 #{#PTR4NUM} has more than one PTR record</name>
                             <url/>
                             <status>0</status>
                             <priority>3</priority>
@@ -389,7 +389,7 @@
                         </trigger_prototype>
                         <trigger_prototype>
                             <expression>{Template DNS Check Mail Server:dnscheck.ptr4[{#PTR4NUM}].str(NOPTR)}=1</expression>
-                            <name>{#HOSTNAME}: IPv4 #{#PTR4NUM} have no PTR record</name>
+                            <name>{#HOSTNAME}: IPv4 #{#PTR4NUM} has no PTR record</name>
                             <url/>
                             <status>0</status>
                             <priority>2</priority>
@@ -425,7 +425,7 @@
                         </trigger_prototype>
                         <trigger_prototype>
                             <expression>{Template DNS Check Mail Server:dnscheck.ipv6[{#IPV6NUM}].str(NOIPV6)}=1</expression>
-                            <name>{#HOSTNAME}: IPv6 #{#IPV6NUM} have no AAAA record</name>
+                            <name>{#HOSTNAME}: IPv6 #{#IPV6NUM} has no AAAA record</name>
                             <url/>
                             <status>0</status>
                             <priority>3</priority>
@@ -434,7 +434,7 @@
                         </trigger_prototype>
                         <trigger_prototype>
                             <expression>{Template DNS Check Mail Server:dnscheck.ptr6[{#PTR6NUM}].str(MULTIPTR)}=1</expression>
-                            <name>{#HOSTNAME}: IPv6 #{#PTR6NUM} have more than one PTR record</name>
+                            <name>{#HOSTNAME}: IPv6 #{#PTR6NUM} has more than one PTR record</name>
                             <url/>
                             <status>0</status>
                             <priority>3</priority>
@@ -443,7 +443,7 @@
                         </trigger_prototype>
                         <trigger_prototype>
                             <expression>{Template DNS Check Mail Server:dnscheck.ptr6[{#PTR6NUM}].str(NOPTR)}=1</expression>
-                            <name>{#HOSTNAME}: IPv6 #{#PTR6NUM} have no PTR record</name>
+                            <name>{#HOSTNAME}: IPv6 #{#PTR6NUM} has no PTR record</name>
                             <url/>
                             <status>0</status>
                             <priority>2</priority>

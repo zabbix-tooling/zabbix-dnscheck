@@ -15,13 +15,15 @@ It is possible to control what data is gathered by providing arguments to the di
 
 | Argument         | Possible values     | Comment                                                                             |
 | ---------------- | ------------------- | ----------------------------------------------------------------------------------- |
-| sys.argv[1]      | get, getverb        | Regular or verbose mode. In verbose you can see zabbix sender output.               |
-| sys.argv[2]      | e.g. `example.org`  | DNS name of the host. `{HOST.DNS}` in zabbix.                                       |
-| sys.argv[3]      | e.g. `Example host` | `Host name` from host's configuration. `{HOST.HOST}` in zabbix.                     |
+| sys.argv[1]      | send,               | send items                                                                          |
+|                  | send_verbose        | In verbose you can see zabbix sender output.                                        |
+| sys.argv[2]      | e.g. `example.org`  | DNS name of the host. `{HOST.DNS}` in zabbix or macro if custom template.           |
+| sys.argv[3]      | e.g. `Example host` | `Host name` from host's configuration. `{HOST.HOST}` in zabbix or macro if custom.. |
 | sys.argv[4]      | ptrYES, ptrNO       | Whether gather PTR or not. Will spawn additional process for each found IP address. |
 | sys.argv[5]      | ipv6YES, ipv6NO     | IPv6 records. Will not spawn additional process.                                    |
 | sys.argv[6]      | mxYES, mxNO         | MX. Will not spawn additional process.                                              |
 | sys.argv[7]      | txtYES, txtNO       | TXT. Will spawn additional process.                                                 |
+| sys.argv[8]      | Namserver           | Nameserver to check (optional)                                                      |
 
 ## Installation
 Requires `python3`, `zabbix-sender`, `bind9-host` (Debian) or `bind-utils` (Centos) packages. Uses `host` binary.<br />
@@ -30,13 +32,13 @@ Take a look at script's first lines and change values if necessary. Its importan
 
 Place scripts in `externalscripts` directory on your server or proxy.
 ```bash
-mv dnscheck-gather-lld.py dnscheck-send.py /usr/lib/zabbix/externalscripts/
+mv dnscheck-resolve.py dnscheck-send.py /usr/lib/zabbix/externalscripts/
 ```
 
 Apply necessary permissions.
 ```bash
-chmod 750 dnscheck-gather-lld.py
-chown root:zabbix dnscheck-gather-lld.py
+chmod 750 dnscheck-resolve.py
+chown root:zabbix dnscheck-resolve.py
 chmod 750 dnscheck-send.py
 chown root:zabbix dnscheck-send.py
 ```
@@ -47,19 +49,19 @@ Note: before scripts would work, zabbix server must first discover available ite
 
 ## Testing
 ```bash
-./dnscheck-gather-lld.py get 'pc1.example.org' 'Example workstation' ptrNO ipv6NO mxNO txtNO
+./dnscheck-resolve.py get 'pc1.example.org' 'Example workstation' ptrNO ipv6NO mxNO txtNO 8.8.8.8
 ```
 Process host `Example workstation` with dns `pc1.example.org` gathering only IPv4 records.
 <br /><br />
 
 ```bash
-./dnscheck-gather-lld.py getverb 'server.example.org' 'Example server' ptrYES ipv6YES mxNO txtNO
+./dnscheck-resolve.py getverb 'server.example.org' 'Example server' ptrYES ipv6YES mxNO txtNO
 ```
 Verbosely process host `Example server` with dns `server.example.org` gathering IPv4, PTR and IPv6 records.
 <br /><br />
 
 ```bash
-./dnscheck-gather-lld.py getverb 'mail.example.org' 'Example mail server' ptrYES ipv6YES mxYES txtYES
+./dnscheck-resolve.py getverb 'mail.example.org' 'Example mail server' ptrYES ipv6YES mxYES txtYES
 ```
 Verbosely process host `Example mail server` with dns `mail.example.org` gathering IPv4, PTR, IPv6, MX and TXT records.
 <br /><br />
