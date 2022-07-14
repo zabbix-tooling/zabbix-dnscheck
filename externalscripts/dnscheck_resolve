@@ -88,7 +88,7 @@ else:
     jsonData.append({'{#HOSTDNS}': hostdns, '{#IPV4NUM}': '1'})
     senderData.append('"' + hosthost + '" dnscheck.ipv4[' + hostdns + ',1] "NOIPV4"')
 
-if IPv6Check == 'ipv6YES' and error == 'no':
+if (IPv6Check == 'ipv6YES' or IPv6Check == 'ipv6MAY') and error == 'no':
     ipv6Re = re.findall(' has IPv6 address (.+)$', hostOut, re.I | re.M)
     ipv6Re.sort()
 
@@ -120,11 +120,10 @@ if IPv6Check == 'ipv6YES' and error == 'no':
                     jsonData.append({'{#HOSTDNS}': hostdns, '{#PTR6NUM}': num6})
                     senderData.append('"' + hosthost + '" dnscheck.ptr6[' + hostdns + ',' + num6 + '] "NOPTR"')
 
-    elif hostOut.find('no servers could be reached') != -1:
+    elif hostOut.find('no servers could be reached') != -1 and IPv6Check != 'ipv6MAY':
         jsonData.append({'{#HOSTDNS}': hostdns, '{#IPV6NUM}': '1'})
         senderData.append('"' + hosthost + '" dnscheck.ipv6[' + hostdns + ', 1] "TIMEOUT"')
-
-    else:
+    elif IPv6Check != 'ipv6MAY':
         jsonData.append({'{#HOSTDNS}': hostdns, '{#IPV6NUM}': '1'})
         senderData.append('"' + hosthost + '" dnscheck.ipv6[' + hostdns + ',1] "NOIPV6"')
 

@@ -13,17 +13,17 @@ Note: for simple agent dns monitoring you should use [net.dns.record](https://ww
 
 It is possible to control what data is gathered by providing arguments to the discovery script in `template -> Discovery -> DNS Check Discovery -> Key`. Based on that, items and triggers will be created and the script will behave differently. For simplicity's sake templates are created for general use: `Workstation`, `Server` and `Mail Server`. Its contents are identical, only arguments to the script differs.
 
-| Argument         | Possible values     | Comment                                                                             |
-| ---------------- | ------------------- | ----------------------------------------------------------------------------------- |
-| sys.argv[1]      | send,               | send items                                                                          |
-|                  | send_verbose        | In verbose you can see zabbix sender output.                                        |
-| sys.argv[2]      | e.g. `example.org`  | DNS name of the host. `{HOST.DNS}` in zabbix or macro if custom template.           |
-| sys.argv[3]      | e.g. `Example host` | `Host name` from host's configuration. `{HOST.HOST}` in zabbix or macro if custom.. |
-| sys.argv[4]      | ptrYES, ptrNO       | Whether gather PTR or not. Will spawn additional process for each found IP address. |
-| sys.argv[5]      | ipv6YES, ipv6NO     | IPv6 records. Will not spawn additional process.                                    |
-| sys.argv[6]      | mxYES, mxNO         | MX. Will not spawn additional process.                                              |
-| sys.argv[7]      | txtYES, txtNO       | TXT. Will spawn additional process.                                                 |
-| sys.argv[8]      | Namserver           | Nameserver to check (optional)                                                      |
+| Argument         | Possible values            | Comment                                                                             |
+| ---------------- | -------------------        | ----------------------------------------------------------------------------------- |
+| sys.argv[1]      | send,                      | send items                                                                          |
+|                  | send_verbose               | In verbose you can see zabbix sender output.                                        |
+| sys.argv[2]      | e.g. `example.org`         | DNS name of the host. `{HOST.DNS}` in zabbix or macro if custom template.           |
+| sys.argv[3]      | e.g. `Example host`        | `Host name` from host's configuration. `{HOST.HOST}` in zabbix or macro if custom.. |
+| sys.argv[4]      | ptrYES, ptrNO              | Whether gather PTR or not. Will spawn additional process for each found IP address. |
+| sys.argv[5]      | ipv6YES, ipv6NO,ipv6MAY    | IPv6 records. Will not spawn additional process.                                    |
+| sys.argv[6]      | mxYES, mxNO                | MX. Will not spawn additional process.                                              |
+| sys.argv[7]      | txtYES, txtNO              | TXT. Will spawn additional process.                                                 |
+| sys.argv[8]      | Namserver                  | Nameserver to check (optional)                                                      |
 
 ## Installation
 Requires `python3`, `zabbix-sender`, `bind9-host` (Debian) or `bind-utils` (Centos) packages. Uses `host` binary.<br />
