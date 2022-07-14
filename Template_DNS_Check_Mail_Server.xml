@@ -29,7 +29,7 @@
                     <type>10</type>
                     <snmp_community/>
                     <snmp_oid/>
-                    <key>dnscheck-resolve.py[send,{HOST.DNS},{HOST.HOST},ptrYES,ipv6NO,mxYES,txtYES,{#NAMESERVER}]</key>
+                    <key>dnscheck-resolve.py[send,{HOST.DNS},{HOST.HOST},ptrYES,ipv6NO,mxYES,txtYES,{$NAMESERVER}]</key>
                     <delay>43200</delay>
                     <status>0</status>
                     <allowed_hosts/>
@@ -58,7 +58,7 @@
                     <description/>
                     <item_prototypes>
                         <item_prototype>
-                            <name>IPv4 on {#HOSTNAME}: #{#IPV4NUM}</name>
+                            <name>IPv4 on {#HOSTDNS}: #{#IPV4NUM}</name>
                             <type>2</type>
                             <snmp_community/>
                             <multiplier>0</multiplier>
@@ -101,7 +101,7 @@
                             <logtimefmt/>
                         </item_prototype>
                         <item_prototype>
-                            <name>IPv6 on {#HOSTNAME}: #{#IPV6NUM}</name>
+                            <name>IPv6 on {#HOSTDNS}: #{#IPV6NUM}</name>
                             <type>2</type>
                             <snmp_community/>
                             <multiplier>0</multiplier>
@@ -144,7 +144,7 @@
                             <logtimefmt/>
                         </item_prototype>
                         <item_prototype>
-                            <name>MX on {#HOSTNAME}: #{#MXNUM}</name>
+                            <name>MX on {#HOSTDNS}: #{#MXNUM}</name>
                             <type>2</type>
                             <snmp_community/>
                             <multiplier>0</multiplier>
@@ -187,7 +187,7 @@
                             <logtimefmt/>
                         </item_prototype>
                         <item_prototype>
-                            <name>MX priority on {#HOSTNAME}: #{#MXPRINUM}</name>
+                            <name>MX priority on {#HOSTDNS}: #{#MXPRINUM}</name>
                             <type>2</type>
                             <snmp_community/>
                             <multiplier>0</multiplier>
@@ -230,7 +230,7 @@
                             <logtimefmt/>
                         </item_prototype>
                         <item_prototype>
-                            <name>PTR for IPv4 on {#HOSTNAME}: #{#PTR4NUM}</name>
+                            <name>PTR for IPv4 on {#HOSTDNS}: #{#PTR4NUM}</name>
                             <type>2</type>
                             <snmp_community/>
                             <multiplier>0</multiplier>
@@ -273,7 +273,7 @@
                             <logtimefmt/>
                         </item_prototype>
                         <item_prototype>
-                            <name>PTR for IPv6 on {#HOSTNAME}: #{#PTR6NUM}</name>
+                            <name>PTR for IPv6 on {#HOSTDNS}: #{#PTR6NUM}</name>
                             <type>2</type>
                             <snmp_community/>
                             <multiplier>0</multiplier>
@@ -316,7 +316,7 @@
                             <logtimefmt/>
                         </item_prototype>
                         <item_prototype>
-                            <name>TXT on {#HOSTNAME}: #{#TXTNUM}</name>
+                            <name>TXT on {#HOSTDNS}: #{#TXTNUM}</name>
                             <type>2</type>
                             <snmp_community/>
                             <multiplier>0</multiplier>
@@ -362,7 +362,7 @@
                     <trigger_prototypes>
                         <trigger_prototype>
                             <expression>{Template DNS Check Mail Server:dnscheck.ipv4[{#IPV4NUM}].diff(0)}&gt;0 and {Template DNS Check Mail Server:dnscheck.ipv4[{#IPV4NUM}].str(TIMEOUT,#2)}=0 and {Template DNS Check Mail Server:dnscheck.ipv4[{#IPV4NUM}].str(NODNS,#2)}=0</expression>
-                            <name>{#HOSTNAME}: IPv4 #{#IPV4NUM} has changed</name>
+                            <name>{#HOSTDNS}: IPv4 #{#IPV4NUM} has changed</name>
                             <url/>
                             <status>0</status>
                             <priority>1</priority>
@@ -371,7 +371,7 @@
                         </trigger_prototype>
                         <trigger_prototype>
                             <expression>{Template DNS Check Mail Server:dnscheck.ipv4[{#IPV4NUM}].str(NOIPV4)}=1</expression>
-                            <name>{#HOSTNAME}: IPv4 #{#IPV4NUM} has no A record</name>
+                            <name>{#HOSTDNS}: IPv4 #{#IPV4NUM} has no A record</name>
                             <url/>
                             <status>0</status>
                             <priority>4</priority>
@@ -380,7 +380,7 @@
                         </trigger_prototype>
                         <trigger_prototype>
                             <expression>{Template DNS Check Mail Server:dnscheck.ptr4[{#PTR4NUM}].str(MULTIPTR)}=1</expression>
-                            <name>{#HOSTNAME}: IPv4 #{#PTR4NUM} has more than one PTR record</name>
+                            <name>{#HOSTDNS}: IPv4 #{#PTR4NUM} has more than one PTR record</name>
                             <url/>
                             <status>0</status>
                             <priority>3</priority>
@@ -389,7 +389,7 @@
                         </trigger_prototype>
                         <trigger_prototype>
                             <expression>{Template DNS Check Mail Server:dnscheck.ptr4[{#PTR4NUM}].str(NOPTR)}=1</expression>
-                            <name>{#HOSTNAME}: IPv4 #{#PTR4NUM} has no PTR record</name>
+                            <name>{#HOSTDNS}: IPv4 #{#PTR4NUM} has no PTR record</name>
                             <url/>
                             <status>0</status>
                             <priority>2</priority>
@@ -398,7 +398,7 @@
                         </trigger_prototype>
                         <trigger_prototype>
                             <expression>{Template DNS Check Mail Server:dnscheck.ptr4[{#PTR4NUM}].diff(0)}&gt;0</expression>
-                            <name>{#HOSTNAME}: IPv4 #{#PTR4NUM} PTR has changed</name>
+                            <name>{#HOSTDNS}: IPv4 #{#PTR4NUM} PTR has changed</name>
                             <url/>
                             <status>0</status>
                             <priority>1</priority>
@@ -407,7 +407,7 @@
                         </trigger_prototype>
                         <trigger_prototype>
                             <expression>{Template DNS Check Mail Server:dnscheck.ptr4[{#PTR4NUM}].str(TIMEOUT,#2)}=1</expression>
-                            <name>{#HOSTNAME}: IPv4 #{#PTR4NUM} recursive query has timed out</name>
+                            <name>{#HOSTDNS}: IPv4 #{#PTR4NUM} recursive query has timed out</name>
                             <url/>
                             <status>0</status>
                             <priority>2</priority>
@@ -416,7 +416,7 @@
                         </trigger_prototype>
                         <trigger_prototype>
                             <expression>{Template DNS Check Mail Server:dnscheck.ipv6[{#IPV6NUM}].diff(0)}&gt;0 and {Template DNS Check Mail Server:dnscheck.ipv6[{#IPV6NUM}].str(TIMEOUT,#2)}=0</expression>
-                            <name>{#HOSTNAME}: IPv6 #{#IPV6NUM} has changed</name>
+                            <name>{#HOSTDNS}: IPv6 #{#IPV6NUM} has changed</name>
                             <url/>
                             <status>0</status>
                             <priority>1</priority>
@@ -425,7 +425,7 @@
                         </trigger_prototype>
                         <trigger_prototype>
                             <expression>{Template DNS Check Mail Server:dnscheck.ipv6[{#IPV6NUM}].str(NOIPV6)}=1</expression>
-                            <name>{#HOSTNAME}: IPv6 #{#IPV6NUM} has no AAAA record</name>
+                            <name>{#HOSTDNS}: IPv6 #{#IPV6NUM} has no AAAA record</name>
                             <url/>
                             <status>0</status>
                             <priority>3</priority>
@@ -434,7 +434,7 @@
                         </trigger_prototype>
                         <trigger_prototype>
                             <expression>{Template DNS Check Mail Server:dnscheck.ptr6[{#PTR6NUM}].str(MULTIPTR)}=1</expression>
-                            <name>{#HOSTNAME}: IPv6 #{#PTR6NUM} has more than one PTR record</name>
+                            <name>{#HOSTDNS}: IPv6 #{#PTR6NUM} has more than one PTR record</name>
                             <url/>
                             <status>0</status>
                             <priority>3</priority>
@@ -443,7 +443,7 @@
                         </trigger_prototype>
                         <trigger_prototype>
                             <expression>{Template DNS Check Mail Server:dnscheck.ptr6[{#PTR6NUM}].str(NOPTR)}=1</expression>
-                            <name>{#HOSTNAME}: IPv6 #{#PTR6NUM} has no PTR record</name>
+                            <name>{#HOSTDNS}: IPv6 #{#PTR6NUM} has no PTR record</name>
                             <url/>
                             <status>0</status>
                             <priority>2</priority>
@@ -452,7 +452,7 @@
                         </trigger_prototype>
                         <trigger_prototype>
                             <expression>{Template DNS Check Mail Server:dnscheck.ptr6[{#PTR6NUM}].diff(0)}&gt;0</expression>
-                            <name>{#HOSTNAME}: IPv6 #{#PTR6NUM} PTR has changed</name>
+                            <name>{#HOSTDNS}: IPv6 #{#PTR6NUM} PTR has changed</name>
                             <url/>
                             <status>0</status>
                             <priority>1</priority>
@@ -461,7 +461,7 @@
                         </trigger_prototype>
                         <trigger_prototype>
                             <expression>{Template DNS Check Mail Server:dnscheck.ptr6[{#PTR6NUM}].str(TIMEOUT,#2)}=1</expression>
-                            <name>{#HOSTNAME}: IPv6 #{#PTR6NUM} recursive query has timed out</name>
+                            <name>{#HOSTDNS}: IPv6 #{#PTR6NUM} recursive query has timed out</name>
                             <url/>
                             <status>0</status>
                             <priority>2</priority>
@@ -470,7 +470,7 @@
                         </trigger_prototype>
                         <trigger_prototype>
                             <expression>{Template DNS Check Mail Server:dnscheck.ipv4[{#IPV4NUM}].str(TIMEOUT,#2)}=1</expression>
-                            <name>{#HOSTNAME}: main DNS forward query has timed out</name>
+                            <name>{#HOSTDNS}: main DNS forward query has timed out</name>
                             <url/>
                             <status>0</status>
                             <priority>2</priority>
@@ -479,7 +479,7 @@
                         </trigger_prototype>
                         <trigger_prototype>
                             <expression>{Template DNS Check Mail Server:dnscheck.mx[{#MXNUM}].diff(0)}&gt;0 and {Template DNS Check Mail Server:dnscheck.mx[{#MXNUM}].str(TIMEOUT,#2)}=0</expression>
-                            <name>{#HOSTNAME}: MX #{#MXNUM} has changed</name>
+                            <name>{#HOSTDNS}: MX #{#MXNUM} has changed</name>
                             <url/>
                             <status>0</status>
                             <priority>1</priority>
@@ -488,7 +488,7 @@
                         </trigger_prototype>
                         <trigger_prototype>
                             <expression>{Template DNS Check Mail Server:dnscheck.mxpri[{#MXPRINUM}].diff(0)}&gt;0</expression>
-                            <name>{#HOSTNAME}: MX priority on #{#MXPRINUM} has changed</name>
+                            <name>{#HOSTDNS}: MX priority on #{#MXPRINUM} has changed</name>
                             <url/>
                             <status>0</status>
                             <priority>1</priority>
@@ -497,7 +497,7 @@
                         </trigger_prototype>
                         <trigger_prototype>
                             <expression>{Template DNS Check Mail Server:dnscheck.mx[{#MXNUM}].str(NOMX)}=1</expression>
-                            <name>{#HOSTNAME}: MX records are not present</name>
+                            <name>{#HOSTDNS}: MX records are not present</name>
                             <url/>
                             <status>0</status>
                             <priority>3</priority>
@@ -506,7 +506,7 @@
                         </trigger_prototype>
                         <trigger_prototype>
                             <expression>{Template DNS Check Mail Server:dnscheck.txt[{#TXTNUM}].diff(0)}&gt;0 and {Template DNS Check Mail Server:dnscheck.txt[{#TXTNUM}].str(TIMEOUT,#2)}=0</expression>
-                            <name>{#HOSTNAME}: TXT #{#TXTNUM} has changed</name>
+                            <name>{#HOSTDNS}: TXT #{#TXTNUM} has changed</name>
                             <url/>
                             <status>0</status>
                             <priority>1</priority>
@@ -515,7 +515,7 @@
                         </trigger_prototype>
                         <trigger_prototype>
                             <expression>{Template DNS Check Mail Server:dnscheck.txt[{#TXTNUM}].str(TIMEOUT,#2)}=1</expression>
-                            <name>{#HOSTNAME}: TXT DNS forward query has timed out</name>
+                            <name>{#HOSTDNS}: TXT DNS forward query has timed out</name>
                             <url/>
                             <status>0</status>
                             <priority>2</priority>
@@ -524,7 +524,7 @@
                         </trigger_prototype>
                         <trigger_prototype>
                             <expression>{Template DNS Check Mail Server:dnscheck.txt[{#TXTNUM}].str(NOTXT)}=1</expression>
-                            <name>{#HOSTNAME}: TXT records are not present</name>
+                            <name>{#HOSTDNS}: TXT records are not present</name>
                             <url/>
                             <status>0</status>
                             <priority>3</priority>
@@ -533,7 +533,7 @@
                         </trigger_prototype>
                         <trigger_prototype>
                             <expression>{Template DNS Check Mail Server:dnscheck.ipv4[{#IPV4NUM}].str(NODNS)}=1</expression>
-                            <name>{#HOSTNAME} needs a DNS name configured in Zabbix</name>
+                            <name>{#HOSTDNS} needs a DNS name configured in Zabbix</name>
                             <url/>
                             <status>0</status>
                             <priority>1</priority>

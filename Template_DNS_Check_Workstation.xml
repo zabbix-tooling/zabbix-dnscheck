@@ -29,7 +29,7 @@
                     <type>10</type>
                     <snmp_community/>
                     <snmp_oid/>
-                    <key>dnscheck-resolve.py[send,{HOST.DNS},{HOST.HOST},ptrNO,ipv6NO,mxNO,txtNO,{#NAMESERVER}]</key>
+                    <key>dnscheck-resolve.py[send,{HOST.DNS},{HOST.HOST},ptrNO,ipv6NO,mxNO,txtNO,{$NAMESERVER}]</key>
                     <delay>43200</delay>
                     <status>0</status>
                     <allowed_hosts/>
@@ -58,7 +58,7 @@
                     <description/>
                     <item_prototypes>
                         <item_prototype>
-                            <name>IPv4 on {#HOSTNAME}: #{#IPV4NUM}</name>
+                            <name>IPv4 on {#HOSTDNS}: #{#IPV4NUM}</name>
                             <type>2</type>
                             <snmp_community/>
                             <multiplier>0</multiplier>

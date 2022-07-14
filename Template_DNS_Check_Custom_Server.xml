@@ -23,7 +23,7 @@
                     <uuid>fd95b3d49d5a4b23a724781229831c78</uuid>
                     <name>DNS Check Discovery</name>
                     <type>EXTERNAL</type>
-                    <key>dnscheck_resolve[send,{$HOSTDNS},{HOST.HOST},ptrYES,ipv6YES,mxNO,txtNO,{$NAMESERVER}]</key>
+                    <key>dnscheck_resolve[send,{$HOSTDNS},{HOST.HOST},ptrNO,ipv6MAY,mxNO,txtNO,{$NAMESERVER}]</key>
                     <delay>300</delay>
                     <lifetime>5d</lifetime>
                     <item_prototypes>
